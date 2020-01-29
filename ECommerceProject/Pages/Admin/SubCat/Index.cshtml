@@ -10,39 +10,40 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<div class="col-lg-11 col-md-11" style="margin-left:4.5%">
+    <div class="card">
+        <div style="display:table; margin:0 auto;width:70%;font-size:large">
+<table class="table table-bordered" border="0">
+    <thead style="background-color:aquamarine;">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SubCategory[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubCategory[0].BannerImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubCategory[0].MainCategory)
-            </th>
-            <th></th>
+            <th style="width:0.25%; text-align:center">S/N</th>
+            <th style="width:8%; text-align:center">Main Category</th>
+            <th style="width:8%; text-align:center">Sub Category</th>
+            <th style="width:10%; text-align:center">Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.SubCategory) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MainCategory.Id)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @*@foreach (var item in Model.SubCategory) {*@
+        @for (int i = 0; i < Model.SubCategory.Count; i++)
+        {
+            var item = Model.SubCategory[i];
+            <tr>
+                <td style="width:0.25%; text-align:left">@(i + 1)</td>
+                <td style="width:8%; text-align:left">
+                    @Html.DisplayFor(modelItem => item.MainCategory.Name)
+                </td>
+                <td style="width:8%; text-align:left">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.MainCategory.Name)
+                </td>*@
+                <td style="width:10%; text-align:center">
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

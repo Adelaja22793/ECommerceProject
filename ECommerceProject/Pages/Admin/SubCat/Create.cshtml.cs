@@ -25,7 +25,7 @@ namespace ECommerceProject.Pages.Admin.SubCat
 
         public IActionResult OnGet()
         {
-            ViewData["MainCategoryId"] = new SelectList(_context.MainCategories, "Id", "Id");
+            ViewData["MainCategoryId"] = new SelectList(_context.MainCategories, "Id", "Name");
             return Page();
         }
 
@@ -38,6 +38,8 @@ namespace ECommerceProject.Pages.Admin.SubCat
             {
                 return Page();
             }
+            var BannerImages = BannerImage;
+            //var _DBContext = new ECommerceProjectContext();
             if (BannerImage != null && BannerImage.Length>0)
             {
                 var filename = DateTime.Now.Ticks.ToString() + BannerImage.FileName;
@@ -48,13 +50,33 @@ namespace ECommerceProject.Pages.Admin.SubCat
                 SubCategory.BannerImage = filename;
                 _context.SubCategories.Add(SubCategory);
                 await _context.SaveChangesAsync();
+                Message = $"{SubCategory.Name} Successfully Saved";
 
             }
+            //else if (SubCategory.Any(x =>x.na))
+            //{
+
+            //}
             else
             {
                 //Error = $"{Type.Name} already exists.";
                 Error = $"{SubCategory.BannerImage} cannot be empty.";
+                return Page();
             }
+
+            //var _DBContext = new TestEcommerceContext();
+            //if (_DBContext.Type.Any(x => x.Name == Type.Name))
+            //{
+            //    Error = $"{Type.Name} already exists.";
+            //}
+            //else
+            //{
+            //    _DBContext.Type.Add(Type);
+            //    _DBContext.SaveChanges();
+            //    Message = $"{Type.Name} Successfully Saved";
+            //    //Error = $"{Type.Name}Error Occoured While Saving";
+
+            //}
             //Assignment, add message for success and fail
 
             return RedirectToPage("./Index");

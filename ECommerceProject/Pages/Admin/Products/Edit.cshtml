@@ -1,0 +1,76 @@
+﻿@page
+@model ECommerceProject.Pages.Admin.Products.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h5>Edit Product</h5>
+<hr />
+
+<div class="container card-body col-lg-12">
+    <div class="card" style="margin-left:10%">
+        <div class="card-body card-block">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="Product.Id" />
+                            <label asp-for="Product.Name" class="control-label"></label>
+                            <input asp-for="Product.Name" class="form-control" />
+                            <span asp-validation-for="Product.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Product.Description" class="control-label"></label>
+                            <input asp-for="Product.Description" class="form-control" />
+                            <span asp-validation-for="Product.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Product.Price" class="control-label"></label>
+                            <input asp-for="Product.Price" class="form-control" step="100" id="myNumber" />
+                            <span asp-validation-for="Product.Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Product.OldPrice" class="control-label"></label>
+                            <input asp-for="Product.OldPrice" class="form-control" />
+                            <span asp-validation-for="Product.OldPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Product.SubCategoryId" class="control-label"></label>
+                            <select asp-for="Product.SubCategoryId" class="form-control" asp-items="ViewBag.SubCategoryId"></select>
+                            <span asp-validation-for="Product.SubCategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary" asp-page="./Index">Back to List of Products</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

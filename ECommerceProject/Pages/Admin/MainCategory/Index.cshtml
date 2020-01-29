@@ -10,7 +10,42 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+<div class="col-lg-11 col-md-11" style="margin-left:4.5%">
+        <div class="card">
+            <div style="display:table; margin:0 auto;width:50%;font-size:large">
+                <table class="table table-bordered" border="0">
+                    <thead style="background-color:aquamarine;">
+                        <tr>
+                            <th style="width:0.25%; text-align:center">S/N</th>
+                            <th style="width:8%; text-align:center">Name</th>
+                            <th style="width:10%; text-align:center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@foreach (var item in Model.MainCategory)
+        //var y = Model.MainCategory.IndexOf(item) + 1;*@
+                        @for (int i = 0; i < Model.MainCategory.Count; i++)
+                        {
+                            var items = Model.MainCategory[i];
+
+                            <tr>
+                                <td style="width:0.25%; text-align:left">@(i + 1)</td>
+                                <td style="width:8%; text-align:left">@items.Name</td>
+                           
+                                <td style="width:10%; text-align:center">
+                                    <a asp-page="./Edit" asp-route-id="@items.Id">Edit</a> |
+                                    <a asp-page="./Details" asp-route-id="@items.Id">Details</a> |
+                                    <a asp-page="./Delete" asp-route-id="@items.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<table class="table" style="display:none">
     <thead>
         <tr>
             <th>
@@ -20,17 +55,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.MainCategory) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.MainCategory)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

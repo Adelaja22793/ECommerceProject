@@ -1,13 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@inject ECommerceProject.Data.ApplicationDbContext db
+@using Microsoft.EntityFrameworkCore
+@{ 
+    var listMainCategory = db.MainCategories.Include(m => m.SubCategories);
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ECommerceProject</title>
 
-    
+
     <link rel="stylesheet" href="~/Templates/web/css/bootstrap.css" />
-    
+
     <link rel="stylesheet" href="~/css/site.css" />
 
 
@@ -183,41 +189,27 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
                             <ul class="dropdown-menu multi-column columns-3">
                                 <div class="row">
-                                    <div class="col-sm-3">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>Mobiles</h6>
-                                            <li><a href="products.html">Mobile Phones</a></li>
-                                            <li><a href="products.html">Mp3 Players <span>New</span></a></li>
-                                            <li><a href="products.html">Popular Models</a></li>
-                                            <li><a href="products.html">All Tablets<span>New</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>Accessories</h6>
-                                            <li><a href="products1.html">Laptop</a></li>
-                                            <li><a href="products1.html">Desktop</a></li>
-                                            <li><a href="products1.html">Wearables <span>New</span></a></li>
-                                            <li><a href="products1.html"><i>Summer Store</i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>Home</h6>
-                                            <li><a href="products2.html">Tv</a></li>
-                                            <li><a href="products2.html">Camera</a></li>
-                                            <li><a href="products2.html">AC</a></li>
-                                            <li><a href="products2.html">Grinders</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="w3ls_products_pos">
-                                            <h4>30%<i>Off/-</i></h4>
-                                            <img src="images/1.jpg" alt=" " class="img-responsive" />
+
+                                    @foreach (var item in listMainCategory)
+                                    {
+                                        <div class="col-sm-4">
+                                            <ul class="multi-column-dropdown">
+                                                <h6>@item.Name</h6>
+                                                @foreach (var subcat in item.SubCategories)
+                                                {
+                                                    <li><a asp-page="/Customer/Products/Group" asp-route-subGrpId="@subcat.Id">@subcat.Name</a></li>
+                                                }
+                                            </ul>
                                         </div>
+                                    }
+                                        <div class="col-sm-4">
+                                            <div class="w3ls_products_pos">
+                                                <h4>30%<i>Off/-</i></h4>
+                                                <img src="images/1.jpg" alt=" " class="img-responsive" />
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="clearfix"></div>
-                                </div>
                             </ul>
                         </li>
                         <li><a href="about.html">About Us</a></li>
@@ -229,6 +221,14 @@
                             </ul>
                         </li>
                         <li><a href="mail.html">Mail Us</a></li>
+                        <li class="w3pages">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrator <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-page="/Admin/MainCategory/Index">Main Category</a></li>
+                                <li><a asp-page="/Admin/SubCat/Index">Sub Category</a></li>
+                                <li><a asp-page="/Admin/Products/Index">Products</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -257,7 +257,7 @@
                 </div>
             </nav>
         </header>*@
-    <div class="container">
+    <div class="container main-container-margin">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()

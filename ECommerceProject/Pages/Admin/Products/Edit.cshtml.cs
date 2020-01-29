@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ECommerceProject.Data;
 
-namespace ECommerceProject.Pages.Admin.SubCat
+namespace ECommerceProject.Pages.Admin.Products
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace ECommerceProject.Pages.Admin.SubCat
         }
 
         [BindProperty]
-        public SubCategory SubCategory { get; set; }
+        public Product Product { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,14 +29,14 @@ namespace ECommerceProject.Pages.Admin.SubCat
                 return NotFound();
             }
 
-            SubCategory = await _context.SubCategories
-                .Include(s => s.MainCategory).FirstOrDefaultAsync(m => m.Id == id);
+            Product = await _context.Products
+                .Include(p => p.SubCategory).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (SubCategory == null)
+            if (Product == null)
             {
                 return NotFound();
             }
-           ViewData["MainCategoryId"] = new SelectList(_context.MainCategories, "Id", "Name");
+           ViewData["SubCategoryId"] = new SelectList(_context.SubCategories, "Id", "Name");
             return Page();
         }
 
@@ -47,7 +47,7 @@ namespace ECommerceProject.Pages.Admin.SubCat
                 return Page();
             }
 
-            _context.Attach(SubCategory).State = EntityState.Modified;
+            _context.Attach(Product).State = EntityState.Modified;
 
             try
             {
@@ -55,7 +55,7 @@ namespace ECommerceProject.Pages.Admin.SubCat
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SubCategoryExists(SubCategory.Id))
+                if (!ProductExists(Product.Id))
                 {
                     return NotFound();
                 }
@@ -68,9 +68,9 @@ namespace ECommerceProject.Pages.Admin.SubCat
             return RedirectToPage("./Index");
         }
 
-        private bool SubCategoryExists(int id)
+        private bool ProductExists(int id)
         {
-            return _context.SubCategories.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }
