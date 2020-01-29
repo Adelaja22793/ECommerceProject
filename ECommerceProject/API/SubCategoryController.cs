@@ -40,6 +40,15 @@ namespace ECommerceProject.API
 
             return Subcat;
         }
+        // GET api
+        [HttpGet("SubById")]
+        public SubCategory GetSubCategoriesById([FromQuery] int id)
+        {
+            var Subcat = _context.SubCategories
+                .FirstOrDefault(x => x.Id == id);
+
+            return Subcat;
+        }
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody]string value)
