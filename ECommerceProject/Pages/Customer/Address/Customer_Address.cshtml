@@ -7,7 +7,7 @@
     ViewData["Title"] = "Customer_Address";
 }
 
-@if (!Model.MyAddress)
+@if (Model.Addresses.Count == 0)
 {
     <div class="card-body">
         <div>
@@ -16,76 +16,19 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12">
-
-                            <button id="btnShowModal" type="button" style="margin-left:400px"
-                                    class="btn btn-sm btn-default pull-left col-lg-3 button button4">
-                                Add Address
-                            </button>
-
-                            <div class="modal fade" tabindex="-1" id="loginModal"
-                                 data-keyboard="false" data-backdrop="static">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">
-                                                ×
-                                            </button>
-                                            <h4 class="modal-title" style="color:blue; margin-left:300px">Address Details</h4>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label asp-for="Address.Title" class="control-label"></label>
-                                                            <input asp-for="Address.Title" id="myTitle" class="form-control" />
-                                                            <span asp-validation-for="Address.Title" class="text-danger"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label asp-for="Address.State" class="control-label"></label>
-                                                            <input asp-for="Address.State" id="myState"  class="form-control" />
-                                                            <span asp-validation-for="Address.State" class="text-danger"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                    <div class="form-group">
-                                                        <label asp-for="Address.ActualAddress" class="control-label"></label>
-                                                        <input asp-for="Address.ActualAddress" id="myAddress" class="form-control" />
-                                                        <span asp-validation-for="Address.ActualAddress" class="text-danger"></span>
-                                                    </div>
-
-</form>
-                                        </div>
-
-                                        <div class="modal-footer d-flex align-content-center" >
-                                            <button type="submit" id="BtnAddress" class="btn btn-primary button button4">Save Address</button>
-                                            <button type="button" id="btnHideModal" class="btn btn-primary button button4">
-                                                Hide
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div style="display:table; margin:0 auto; width:80%; font-size:large">
+                                <table id="tabId" class="table table-bordered" border="0">
+                                    <thead style="background-color:yellow; ">
+                                        <tr>
+                                            <th style="width:0.25%; color: Blue; text-align:center">S/N</th>
+                                            <th style="width:8%; color: Blue; color: Blue; text-align:center">Title</th>
+                                            <th style="width:10%; color: Blue; text-align:center">State</th>
+                                            <th style="width:40%; color: Blue; text-align:center">Address</th>
+                                            <th style="width:40%; color: Blue; text-align:center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
                             </div>
-
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-}
-else
-{
-    <div class="col-lg-11 col-md-11">
-        <div class="card">
-            <fieldset>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-
                             <button id="btnShowModal" type="button" style="margin-left:400px"
                                     class="btn btn-sm btn-default pull-left col-lg-3 button button4">
                                 Add Address
@@ -143,14 +86,86 @@ else
                     </div>
                 </div>
             </fieldset>
-            <div style="display:table; margin:0 auto; width:50%; font-size:large">
-                <table class="table table-bordered" border="0">
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-lg-11 col-md-11">
+        <div class="card">
+            <fieldset>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            
+                                    <button id="btnShowModal" type="button" style="margin-left:400px"
+                                            class="btn btn-sm btn-default pull-left col-lg-3 button button4">
+                                        Add Address
+                                    </button>
+
+                                    <div class="modal fade" tabindex="-1" id="loginModal"
+                                         data-keyboard="false" data-backdrop="static">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        ×
+                                                    </button>
+                                                    <h4 class="modal-title" style="color:blue; margin-left:300px">Address Details</h4>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Address.Title" class="control-label"></label>
+                                                                    <input asp-for="Address.Title" id="myTitle" class="form-control" />
+                                                                    <span asp-validation-for="Address.Title" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label asp-for="Address.State" class="control-label"></label>
+                                                                    <input asp-for="Address.State" id="myState" class="form-control" />
+                                                                    <span asp-validation-for="Address.State" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="Address.ActualAddress" class="control-label"></label>
+                                                            <input asp-for="Address.ActualAddress" id="myAddress" class="form-control" />
+                                                            <input asp-for="Address.Id" id="myidd" type="hidden" class="form-control" />
+                                                            <span asp-validation-for="Address.ActualAddress" class="text-danger"></span>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                                <div class="modal-footer d-flex align-content-center">
+                                                    <button type="submit" id="BtnAddress" class="btn btn-primary button button4">Save Address</button>
+                                                    <button type="submit" style="display:none;" id="BtnEditAddress" class="btn btn-primary button button4">Update Address</button>
+                                                    <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                                                        Hide
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                </div>
+            </fieldset>
+            <div style="display:table; margin:0 auto; width:70%; font-size:large">
+                <table id="tabId" class="table table-bordered" border="0">
                     <thead style="background-color:aquamarine;">
                         <tr>
                             <th style="width:0.25%; text-align:center">S/N</th>
                             <th style="width:8%; text-align:center">Title</th>
                             <th style="width:10%; text-align:center">State</th>
                             <th style="width:40%; text-align:center">Address</th>
+                            <th style="width:40%; text-align:center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -159,14 +174,20 @@ else
                             var items = Model.Addresses[i];
                             //var news = await db.Customers
 
-                            <tr>
-                                <td style="width:0.25%; text-align:left">@(i + 1)</td>
-                                <td style="width:8%; text-align:left">@items.Title</td>
-                                <td style="width:10%; text-align:left">@items.State</td>
-                                <td style="width:40%; text-align:left">@items.ActualAddress</td>
+                        <tr>
+                            <td class="se_no" style="width:0.25%; text-align:left">@(i + 1)</td>
+                            <td class="titleclass @i" style="width:8%; text-align:left">@items.Title</td>
+                            <td class="stateclass @i" style="width:10%; text-align:left">@items.State</td>
+                            <td class="addresclass @i" style="width:40%; text-align:left">@items.ActualAddress</td>
+                            
+                            <td style="width:60%;" >
+                                <input type="hidden" class="readid @i" value="@items.Id">
+                                <a id="myEdit" AddreEdit="@i" asp-route-id="@items.Id">Edit</a> |
+                                <a asp-page="./Details" asp-route-id="@items.Id">Details</a> |
+                                <a asp-page="./Delete" asp-route-id="@items.Id">Delete</a>
+                            </td>
 
-
-                            </tr>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -245,6 +266,8 @@ else
     $(document).ready(function () {
         $("#btnShowModal").click(function () {
             $("#loginModal").modal('show');
+            document.getElementById('BtnEditAddress').style.display = "none";
+            document.getElementById('BtnAddress').style.display = "inline-block";
         });
         $("#btnShowModal1").click(function () {
             $("#loginModal").modal('show');
@@ -257,10 +280,46 @@ else
             $("#loginModal").modal('hide');
         });
     });
+    $(document).ready(function () {
+
+        $("#tabId").on('click', '#myEdit', function () {
+            $("#loginModal").modal('show');
+            var editindex = $(this).attr('AddreEdit');
+            var title = $('.titleclass.' + editindex).text();
+            var stateq = $('.stateclass.' + editindex).text();
+            var myAddress = $('.addresclass.' + editindex).text();
+            var myid = $('.readid.' + editindex).val();
+
+            alert(myid);
+                    document.getElementById('BtnEditAddress').style.display = "inline-block";
+                    document.getElementById('BtnAddress').style.display = "none";
+            
+            $('#myTitle').val(title);
+            $('#myState').val(stateq);
+            $('#myAddress').val(myAddress);
+             $('#myidd').val(myid);
+                    return false;
+            
+        });
+    })
 </script>
 
 <script>
+    function Edit() {
+            
+            var w = document.getElementById("tabId");
+
+
+            for (var i = 0; i < x.length; i++) {
+                document.getElementsByClassName("check")[i].checked = false;
+
+            }
+            w.style.display = "none";
+            y.style.display = "block";
+
+        }
     $(document).ready(function () {
+
         $('#BtnAddress').on('click', function () {
             var myTitle = document.getElementById('myTitle').value;
             var myState = document.getElementById('myState').value;
@@ -290,37 +349,82 @@ else
                     alert(data.responseText);
                 },
                 success: function (data) {
+                    var serialNoCols = document.getElementsByClassName("se_no");
+                    var col = serialNoCols[serialNoCols.length - 1];
+                    var serno = Number(col.textContent) + 1;
                     //after success add a new row to the table created
                     alert("Successful");
+                   
                     $("#loginModal").modal('hide');
-                    location.reload();
-                    //$.ajax({
-                    //    type: "GET",
-                    //    url: baseUrl + 'Api/Addresses',
-                    //    data: JSON.stringify(d),
-                    //    xhrFields: {
-                    //    withCredentials: true
-                    //},
-                    //contentType: "application/json; charset=utf-8",
-                    //error: function (data) {
-                    //    alert(data.responseText);
-
-                    //},
-                    //failure: function (data) {
-                    //    alert(data.responseText);
-                    //},
-                    //    success: function (data) {
-                    //        location.reload();
-                    //    }
-                    //});
-
+                    console.log(data);
+                    console.log(serialNoCols);
+                    ////console.log();
+                    var myid = data['id'];
+                    var title = data['title'];
+                    var state = data['state'];
+                    var actu = data['actualAddress']
+                    //var title = data.d['id']
+                    
+                    var html = `<tr>
+                                <td class="se_no" style="width:0.25%; text-align:left">${serno}</td>
+                                <td style="width:8%; text-align:left">${title}</td>
+                                <td style="width:10%; text-align:left">${state}</td>
+                                <td style="width:40%; text-align:left">${actu}</td>
+                                <td style="width:60%;" class="action">
+                                <a href="/Customer/Address/Edit?id=${myid}">Edit</a> |
+                                <a href="/Customer/Address/Details?id=${myid}">Details</a> |
+                                <a href="/Customer/Address/Delete?id=${myid}">Delete</a>
+                            </td>
+                            </tr>`
+                   // location.reload();
+                    $('#tabId').append(html);
+                    
                 },
             });
         });
         //End of AJAX error function
+        $('#BtnEditAddress').on('click', function () {
+            var myTitle = document.getElementById('myTitle').value;
+            var myState = document.getElementById('myState').value;
+            var myAddress = document.getElementById('myAddress').value;
+            var editindex = document.getElementById('myidd').value;
+           // alert(myTitle); alert(myState); alert(myAddress);
+            var d = {
+                "Title": myTitle,
+                "State": myState,
+                "ActualAddress": myAddress,
+                "Id": editindex,
+
+            };
+            var baseUrl = window.location.origin;
+            $.ajax({
+                type: "PUT",
+                url: baseUrl + '/Api/Addresses/ '+ editindex,
+                data: JSON.stringify(d),
+                xhrFields: {
+                    withCredentials: true
+                },
+                contentType: "application/json; charset=utf-8",
+                error: function (data) {
+                    alert(data.responseText);
+
+                },
+                failure: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    alert(data.d);
+                    alert("Update Successful");
+                    $("#loginModal").modal('hide');
+
+                },
+            });
+        });
 
     });
+
 </script>
+
 
 
 

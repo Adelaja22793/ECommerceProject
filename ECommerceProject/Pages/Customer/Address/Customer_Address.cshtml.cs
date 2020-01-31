@@ -29,18 +29,21 @@ namespace ECommerceProject.Pages.Customer.Address
         {
 
             LoginUser = (await GetCurrentUserAsync()).Id;
-            var logUser = await GetCurrentUserAsync();
-            var userid = logUser.Id;
+            //var logUser = await GetCurrentUserAsync();
+            //var userid = logUser.Id;
             //Address.CustomerId = userid;
             //var ids = _userManager.GetUserId(User);
-            MyAddress =  _context.Addresses
-                .Where(x=>x.CustomerId == userid)
-                .Any();
+            //MyAddress =  _context.Addresses
+            //    .Where(x=>x.CustomerId == userid)
+            //    .Any();
             //.Where(x=>x.)
             Addresses = await _context.Addresses
                 .Where(p => p.CustomerId == LoginUser).ToListAsync();
-
-            Message = "No Address has been created for the selected course, class and session";
+            if (Addresses != null)
+            {
+                Message = "No Address has been created for the selected course, class and session";
+            }
+            
         }
         private Task<IdentityUser> GetCurrentUserAsync() =>
            _userManager.GetUserAsync(HttpContext.User);
