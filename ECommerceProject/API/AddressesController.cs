@@ -60,11 +60,20 @@ namespace ECommerceProject.API
                 return BadRequest();
             }
 
-            _context.Entry(address).State = EntityState.Modified;
+            var updatedAddress = await _context.Addresses.FirstOrDefaultAsync(m => m.Id == id);
+            updatedAddress.State = address.State;
+            updatedAddress.Title = address.Title;
+            updatedAddress.ActualAddress = address.ActualAddress;
+
+           
+            // _context.SaveChangesAsync();
+            //_context.Entry(address).State = EntityState.Modified;
 
             try
             {
+               // _context.Update(address);
                 await _context.SaveChangesAsync();
+                return Ok(updatedAddress);  
             }
             catch (DbUpdateConcurrencyException)
             {
