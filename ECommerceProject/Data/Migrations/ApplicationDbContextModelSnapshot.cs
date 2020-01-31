@@ -56,9 +56,9 @@ namespace ECommerceProject.Data.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("SelectedAddressId");
+                    b.Property<int?>("SelectedAddressId");
 
-                    b.Property<int>("SelectedColourId");
+                    b.Property<int?>("SelectedColourId");
 
                     b.HasKey("Id");
 
@@ -129,16 +129,6 @@ namespace ECommerceProject.Data.Migrations
                     b.Property<string>("Name");
 
                     b.Property<double>("OldPrice");
-
-                    b.Property<string>("Prduct_Image1");
-
-                    b.Property<string>("Prduct_Image2");
-
-                    b.Property<string>("Prduct_Image3");
-
-                    b.Property<string>("Prduct_Image4");
-
-                    b.Property<string>("Prduct_Image5");
 
                     b.Property<double>("Price");
 
@@ -211,6 +201,22 @@ namespace ECommerceProject.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e1e36958-8ee5-4220-8210-f12ca32a65bb",
+                            ConcurrencyStamp = "8c2a10ec-79f6-4fbc-9974-dd64b1bbd148",
+                            Name = "Custermer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = "cc94f19e-3fa8-41fc-8474-55af86df078b",
+                            ConcurrencyStamp = "bcee0059-6fc3-4316-b9fd-f35eb4a2f9ce",
+                            Name = "staff",
+                            NormalizedName = "STAFF"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -363,6 +369,8 @@ namespace ECommerceProject.Data.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("CardNumber");
+
                     b.HasDiscriminator().HasValue("Customer");
                 });
 
@@ -386,13 +394,11 @@ namespace ECommerceProject.Data.Migrations
 
                     b.HasOne("ECommerceProject.Data.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("SelectedAddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SelectedAddressId");
 
                     b.HasOne("ECommerceProject.Data.Colour", "Colour")
                         .WithMany()
-                        .HasForeignKey("SelectedColourId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SelectedColourId");
                 });
 
             modelBuilder.Entity("ECommerceProject.Data.Image", b =>

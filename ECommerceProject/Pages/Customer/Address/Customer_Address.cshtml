@@ -1,0 +1,326 @@
+﻿@page
+@inject ECommerceProject.Data.ApplicationDbContext db
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Identity;
+@model ECommerceProject.Pages.Customer.Address.Customer_AddressModel
+@{
+    ViewData["Title"] = "Customer_Address";
+}
+
+@if (!Model.MyAddress)
+{
+    <div class="card-body">
+        <div>
+            <h2 style="background-color: Yellow;color: Blue; text-align: center; font-style: oblique">@Html.DisplayFor(m => Model.Message)</h2>
+            <fieldset>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <button id="btnShowModal" type="button" style="margin-left:400px"
+                                    class="btn btn-sm btn-default pull-left col-lg-3 button button4">
+                                Add Address
+                            </button>
+
+                            <div class="modal fade" tabindex="-1" id="loginModal"
+                                 data-keyboard="false" data-backdrop="static">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                ×
+                                            </button>
+                                            <h4 class="modal-title" style="color:blue; margin-left:300px">Address Details</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label asp-for="Address.Title" class="control-label"></label>
+                                                            <input asp-for="Address.Title" id="myTitle" class="form-control" />
+                                                            <span asp-validation-for="Address.Title" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label asp-for="Address.State" class="control-label"></label>
+                                                            <input asp-for="Address.State" id="myState"  class="form-control" />
+                                                            <span asp-validation-for="Address.State" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Address.ActualAddress" class="control-label"></label>
+                                                        <input asp-for="Address.ActualAddress" id="myAddress" class="form-control" />
+                                                        <span asp-validation-for="Address.ActualAddress" class="text-danger"></span>
+                                                    </div>
+
+</form>
+                                        </div>
+
+                                        <div class="modal-footer d-flex align-content-center" >
+                                            <button type="submit" id="BtnAddress" class="btn btn-primary button button4">Save Address</button>
+                                            <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                                                Hide
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-lg-11 col-md-11">
+        <div class="card">
+            <fieldset>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <button id="btnShowModal" type="button" style="margin-left:400px"
+                                    class="btn btn-sm btn-default pull-left col-lg-3 button button4">
+                                Add Address
+                            </button>
+
+                            <div class="modal fade" tabindex="-1" id="loginModal"
+                                 data-keyboard="false" data-backdrop="static">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                ×
+                                            </button>
+                                            <h4 class="modal-title" style="color:blue; margin-left:300px">Address Details</h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label asp-for="Address.Title" class="control-label"></label>
+                                                            <input asp-for="Address.Title" id="myTitle" class="form-control" />
+                                                            <span asp-validation-for="Address.Title" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label asp-for="Address.State" class="control-label"></label>
+                                                            <input asp-for="Address.State" id="myState" class="form-control" />
+                                                            <span asp-validation-for="Address.State" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Address.ActualAddress" class="control-label"></label>
+                                                    <input asp-for="Address.ActualAddress" id="myAddress" class="form-control" />
+                                                    <span asp-validation-for="Address.ActualAddress" class="text-danger"></span>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                        <div class="modal-footer d-flex align-content-center">
+                                            <button type="submit" id="BtnAddress" class="btn btn-primary button button4">Save Address</button>
+                                            <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                                                Hide
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div style="display:table; margin:0 auto; width:50%; font-size:large">
+                <table class="table table-bordered" border="0">
+                    <thead style="background-color:aquamarine;">
+                        <tr>
+                            <th style="width:0.25%; text-align:center">S/N</th>
+                            <th style="width:8%; text-align:center">Title</th>
+                            <th style="width:10%; text-align:center">State</th>
+                            <th style="width:40%; text-align:center">Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Addresses.Count; i++)
+                        {
+                            var items = Model.Addresses[i];
+                            //var news = await db.Customers
+
+                            <tr>
+                                <td style="width:0.25%; text-align:left">@(i + 1)</td>
+                                <td style="width:8%; text-align:left">@items.Title</td>
+                                <td style="width:10%; text-align:left">@items.State</td>
+                                <td style="width:40%; text-align:left">@items.ActualAddress</td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button1 {
+        border-radius: 2px;
+    }
+
+    .button2 {
+        border-radius: 4px;
+    }
+
+    .button3 {
+        border-radius: 8px;
+    }
+
+    .button4 {
+        border-radius: 12px;
+    }
+
+    .button5 {
+        border-radius: 50%;
+    }
+</style>
+
+<style>
+    .form-elegant .font-small {
+        font-size: 0.8rem;
+    }
+
+    .form-elegant .z-depth-1a {
+        -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+        box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+    }
+
+    .form-elegant .z-depth-1-half,
+    .form-elegant .btn:hover {
+        -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+        box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+    }
+
+    .form-elegant .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-dialog .form-elegant .btn .fab {
+        color: #2196f3 !important;
+    }
+
+    .form-elegant .modal-body, .form-elegant .modal-footer {
+        font-weight: 400;
+    }
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnShowModal").click(function () {
+            $("#loginModal").modal('show');
+        });
+        $("#btnShowModal1").click(function () {
+            $("#loginModal").modal('show');
+        });
+         $("#btnShowModal2").click(function () {
+            $("#loginModal").modal('show');
+        });
+
+        $("#btnHideModal").click(function () {
+            $("#loginModal").modal('hide');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#BtnAddress').on('click', function () {
+            var myTitle = document.getElementById('myTitle').value;
+            var myState = document.getElementById('myState').value;
+            var myAddress = document.getElementById('myAddress').value;
+
+           // alert(myTitle); alert(myState); alert(myAddress);
+            var d = {
+                "Title": myTitle,
+                "State": myState,
+                "ActualAddress": myAddress,
+
+            };
+            var baseUrl = window.location.origin;
+            $.ajax({
+                type: "POST",
+                url: baseUrl + '/Api/Addresses',
+                data: JSON.stringify(d),
+                xhrFields: {
+                    withCredentials: true
+                },
+                contentType: "application/json; charset=utf-8",
+                error: function (data) {
+                    alert(data.responseText);
+
+                },
+                failure: function (data) {
+                    alert(data.responseText);
+                },
+                success: function (data) {
+                    //after success add a new row to the table created
+                    alert("Successful");
+                    $("#loginModal").modal('hide');
+                    location.reload();
+                    //$.ajax({
+                    //    type: "GET",
+                    //    url: baseUrl + 'Api/Addresses',
+                    //    data: JSON.stringify(d),
+                    //    xhrFields: {
+                    //    withCredentials: true
+                    //},
+                    //contentType: "application/json; charset=utf-8",
+                    //error: function (data) {
+                    //    alert(data.responseText);
+
+                    //},
+                    //failure: function (data) {
+                    //    alert(data.responseText);
+                    //},
+                    //    success: function (data) {
+                    //        location.reload();
+                    //    }
+                    //});
+
+                },
+            });
+        });
+        //End of AJAX error function
+
+    });
+</script>
+
+
+

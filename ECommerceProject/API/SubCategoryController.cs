@@ -31,23 +31,24 @@ namespace ECommerceProject.API
         {
             return "value";
         }
-        // GET api
+        // GET ALL SUBCATEGORY WITH THE MAIN CATEGORY ID
         [HttpGet("SubByMain")]
         public List<SubCategory> GetSubCategories([FromQuery] int id)
         {
-            var Subcat = _context.SubCategories
+            var Subcat = _context.SubCategories.Include(x => x.MainCategory)
                 .Where(x => x.MainCategoryId == id).ToList();
 
             return Subcat;
         }
-        // GET api
+        // GET ALL SUBCATEGORY WITH ID
         [HttpGet("SubById")]
         public SubCategory GetSubCategoriesById([FromQuery] int id)
         {
             var Subcat = _context.SubCategories
                 .FirstOrDefault(x => x.Id == id);
-
-            return Subcat;
+            
+                return Subcat;
+            
         }
         // POST api/<controller>
         [HttpPost]

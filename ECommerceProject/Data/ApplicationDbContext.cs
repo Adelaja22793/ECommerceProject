@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,26 @@ namespace ECommerceProject.Data
             : base(options)
         {
 
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //SEEDING DATA
+            var roles = new List<IdentityRole>()
+            {
+                new IdentityRole
+                {
+                    Name = "Custermer",
+                    NormalizedName = "CUSTOMER"
+                },
+                new IdentityRole
+                {
+                    Name = "staff",
+                    NormalizedName = "STAFF"
+                }
+            };
+            builder.Entity<IdentityRole>().HasData(roles);
+
+            base.OnModelCreating(builder);
         }
     }
 }
